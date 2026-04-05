@@ -123,20 +123,20 @@ const getGitHubStats = async (username) => {
     }))
 
   return {
-    username: user.login,
-    name: user.name,
-    avatar: user.avatar_url,
-    bio: user.bio,
-    followers: user.followers,
-    following: user.following,
-    publicRepos: user.public_repos,
-    totalStars,
-    totalForks,
-    recentCommits: bestCommitCount,
-    topLanguages,
-    topRepos,
-    recentActivity,
-    profileUrl: user.html_url
-  }
+  username: user.login,
+  name: user.name,
+  avatar: user.avatar_url,
+  bio: user.bio,
+  followers: user.followers,
+  following: user.following,
+  publicRepos: user.public_repos,
+  totalStars,
+  totalForks,
+  recentCommits: bestCommitCount,
+  topLanguages,
+  topRepos,
+  recentActivity,
+  profileUrl: user.html_url
+}
 }
 module.exports = { getGitHubStats }
