@@ -238,11 +238,11 @@ export default function Login() {
 
               {/* OAuth buttons */}
               <div className="grid grid-cols-2 gap-2.5 mb-5">
-                <a href="http://localhost:5000/api/auth/github"
+                <a href={`${import.meta.env.VITE_API_URL}/auth/github`}
                   className="flex items-center justify-center gap-2 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-700 bg-gray-50 hover:bg-gray-100 transition">
                   <GitHubLogo size={15} /> GitHub
                 </a>
-                <a href="http://localhost:5000/api/auth/google"
+                <a href={`${import.meta.env.VITE_API_URL}/auth/google`}
                   className="flex items-center justify-center gap-2 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-700 bg-gray-50 hover:bg-gray-100 transition">
                   <GoogleIcon /> Google
                 </a>

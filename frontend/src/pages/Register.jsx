@@ -236,13 +236,13 @@ export default function Register() {
               {/* OAuth buttons */}
               <div className="grid grid-cols-2 gap-2.5 mb-5">
                 {/* GitHub Register */}
-              <a href="http://localhost:5000/api/auth/github/register"
+              <a href={`${import.meta.env.VITE_API_URL}/auth/github/register`}
                 className="flex items-center justify-center gap-2 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-700 bg-gray-50 hover:bg-gray-100 transition">
                 <GitHubLogo size={15} /> GitHub
               </a>
 
               {/* Google Register */}
-              <a href="http://localhost:5000/api/auth/google/register"
+              <a href={`${import.meta.env.VITE_API_URL}/auth/google/register`}
                 className="flex items-center justify-center gap-2 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-700 bg-gray-50 hover:bg-gray-100 transition">
                 <GoogleIcon /> Google
               </a>
