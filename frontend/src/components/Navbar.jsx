@@ -66,7 +66,7 @@ export default function Navbar() {
               : initials
             }
           </div>
-          <div className="absolute right-0 top-10 w-40 bg-white border border-gray-200 rounded-xl shadow-sm opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all">
+          <div className="absolute right-0 top-full mt-1 w-40 bg-white border border-gray-200 rounded-xl shadow-sm opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all">
             <div className="px-4 py-2.5 border-b border-gray-100">
               <p className="text-xs font-medium text-gray-900 truncate">{user?.name}</p>
               <p className="text-xs text-gray-400 truncate">{user?.email}</p>
