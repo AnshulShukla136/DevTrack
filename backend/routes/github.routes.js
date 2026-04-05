@@ -88,5 +88,68 @@ router.post('/connect', protect, async (req, res) => {
     res.status(500).json({ message: 'Failed to connect GitHub', error: err.message })
   }
 })
+router.get('/debug', protect, async (req, res) => {
+  try {
+    const username = req.query.username
+    const headers = {
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Accept: 'application/vnd.github.v3+json'
+    }
+
+    // Test 1 — events
+    const eventsRes = await axios.get(
+      `https://api.github.com/users/${username}/events?per_page=10`,
+      { headers }
+    )
+
+    // Test 2 — commits search
+    let searchResult = null
+    try {
+      const searchRes = await axios.get(
+        `https://api.github.com/search/commits?q=author:${username}&per_page=1`,
+        { headers: { ...headers, Accept: 'application/vnd.github.cloak-preview+json' } }
+      )
+      searchResult = searchRes.data.total_count
+    } catch (e) {
+      searchResult = `Error: ${e.message}`
+    }
+
+    // Test 3 — one repo commits
+    const reposRes = await axios.get(
+      `https://api.github.com/users/${username}/repos?per_page=5`,
+      { headers }
+    )
+    const repos = reposRes.data
+
+    const repoCommits = []
+    for (const repo of repos.slice(0, 3)) {
+      try {
+        const r = await axios.get(
+          `https://api.github.com/repos/${username}/${repo.name}/commits?author=${username}&per_page=1`,
+          { headers }
+        )
+        const link = r.headers.link || ''
+        const match = link.match(/page=(\d+)>; rel="last"/)
+        const count = match ? parseInt(match[1]) : r.data.length
+        repoCommits.push({ repo: repo.name, count, link })
+      } catch (e) {
+        repoCommits.push({ repo: repo.name, error: e.message })
+      }
+    }
+
+    res.json({
+      eventsCount: eventsRes.data.length,
+      eventTypes: eventsRes.data.map(e => e.type),
+      pushEvents: eventsRes.data.filter(e => e.type === 'PushEvent').map(e => ({
+        repo: e.repo.name,
+        commits: e.payload?.commits?.length
+      })),
+      searchTotalCommits: searchResult,
+      repoCommits
+    })
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
 
 module.exports = router
