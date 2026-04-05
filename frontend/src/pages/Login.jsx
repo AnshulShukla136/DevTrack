@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../api/axios'
 import { useAuth } from '../context/AuthContext'
+import PasswordInput from '../components/PasswordInput'
 import { DevTrackLogo, GitHubLogo, LeetCodeLogo, CodeForcesLogo } from '../components/Icons'
 
 const GoogleIcon = () => (
@@ -263,9 +264,12 @@ export default function Login() {
                 </div>
                 <div>
                   <label className="block text-xs text-gray-500 mb-1.5">Password</label>
-                  <input name="password" type="password" required value={form.password}
-                    onChange={handleChange} placeholder="Your password"
-                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition" />
+                  <PasswordInput
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                    placeholder="Your password"
+                  />
                 </div>
                 <button type="submit" disabled={loading}
                   className="w-full bg-gray-900 hover:bg-gray-800 disabled:opacity-50 text-white font-medium py-2.5 rounded-xl transition text-sm">

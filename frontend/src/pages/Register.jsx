@@ -3,6 +3,7 @@ import {useSearchParams, Link, useNavigate } from 'react-router-dom'
 import api from '../api/axios'
 import { useAuth } from '../context/AuthContext'
 import { DevTrackLogo, GitHubLogo, LeetCodeLogo, CodeForcesLogo } from '../components/Icons'
+import PasswordInput from '../components/PasswordInput'
 
 const GoogleIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24">
@@ -258,7 +259,7 @@ export default function Register() {
                 <div>
                   <label className="block text-xs text-gray-500 mb-1.5">Full name</label>
                   <input name="name" type="text" required value={form.name}
-                    onChange={handleChange} placeholder="John Doe"
+                    onChange={handleChange} placeholder="Your name"
                     className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition" />
                 </div>
                 <div>
@@ -269,9 +270,12 @@ export default function Register() {
                 </div>
                 <div>
                   <label className="block text-xs text-gray-500 mb-1.5">Password</label>
-                  <input name="password" type="password" required value={form.password}
-                    onChange={handleChange} placeholder="Min 6 characters"
-                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition" />
+                  <PasswordInput
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                    placeholder="Min 6 characters"
+                  />
                 </div>
                 <button type="submit" disabled={loading}
                   className="w-full bg-gray-900 hover:bg-gray-800 disabled:opacity-50 text-white font-medium py-2.5 rounded-xl transition text-sm">
