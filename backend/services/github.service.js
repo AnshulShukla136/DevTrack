@@ -35,9 +35,52 @@ const getGitHubStats = async (username) => {
   // Total forks
   const totalForks = repos.reduce((acc, r) => acc + r.forks_count, 0)
 
-  // Commit count from events (last 100 public events)
-  const commitEvents = events.filter(e => e.type === 'PushEvent')
-  const recentCommits = commitEvents.reduce((acc, e) => acc + (e.payload?.commits?.length || 0), 0)
+  // ── Better commit counting ──────────────────────────────────
+  // Method 1: Count from push events (recent activity)
+  const pushEvents = events.filter(e => e.type === 'PushEvent')
+  const recentCommits = pushEvents.reduce((acc, e) => acc + (e.payload?.commits?.length || 0), 0)
+
+  // Method 2: Get total commits across all repos using search API
+  let totalCommits = 0
+  try {
+    const commitSearchRes = await axios.get(
+      `${GITHUB_API}/search/commits?q=author:${username}&per_page=1`,
+      {
+        headers: {
+          ...headers,
+          Accept: 'application/vnd.github.cloak-preview+json'
+        }
+      }
+    )
+    totalCommits = commitSearchRes.data.total_count || 0
+  } catch (e) {
+    // fallback to counting from repos
+    totalCommits = recentCommits
+    console.log('Commit search failed, using events count')
+  }
+
+  // Method 3: Get contribution count from each repo
+  let repoCommits = 0
+  try {
+    const commitPromises = repos.slice(0, 10).map(repo =>
+      axios.get(
+        `${GITHUB_API}/repos/${username}/${repo.name}/commits?author=${username}&per_page=1`,
+        { headers }
+      ).then(res => {
+        // Get total from Link header
+        const link = res.headers.link || ''
+        const match = link.match(/page=(\d+)>; rel="last"/)
+        return match ? parseInt(match[1]) : res.data.length
+      }).catch(() => 0)
+    )
+    const counts = await Promise.all(commitPromises)
+    repoCommits = counts.reduce((a, b) => a + b, 0)
+  } catch (e) {
+    console.log('Repo commits count failed')
+  }
+
+  // Use the best available count
+  const bestCommitCount = Math.max(totalCommits, repoCommits, recentCommits)
 
   // Recent activity feed
   const recentActivity = events.slice(0, 10).map(e => {
@@ -89,12 +132,11 @@ const getGitHubStats = async (username) => {
     publicRepos: user.public_repos,
     totalStars,
     totalForks,
-    recentCommits,
+    recentCommits: bestCommitCount,
     topLanguages,
     topRepos,
     recentActivity,
     profileUrl: user.html_url
   }
 }
-
 module.exports = { getGitHubStats }

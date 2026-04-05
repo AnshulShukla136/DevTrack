@@ -274,7 +274,7 @@ export default function Register() {
                     name="password"
                     value={form.password}
                     onChange={handleChange}
-                    placeholder="Min 6 characters"
+                    placeholder="max(6, password)"
                   />
                 </div>
                 <button type="submit" disabled={loading}

@@ -148,7 +148,7 @@ export default function GitHubPage() {
               <StatBox label="Public repos" value={stats.publicRepos} />
               <StatBox label="Total stars" value={stats.totalStars} />
               <StatBox label="Followers" value={stats.followers} />
-              <StatBox label="Recent commits" value={stats.recentCommits} />
+              <StatBox label="Total commits" value={stats.recentCommits?.toLocaleString()} />
             </div>
 
             {/* Languages + Top repos */}
