@@ -34,80 +34,56 @@ const getGitHubStats = async (username) => {
 
   // Total forks
   const totalForks = repos.reduce((acc, r) => acc + r.forks_count, 0)
-
-  // ── Better commit counting ──────────────────────────────────
   // Method 1: Count from push events (recent activity)
   const pushEvents = events.filter(e => e.type === 'PushEvent')
   const recentCommits = pushEvents.reduce((acc, e) => acc + (e.payload?.commits?.length || 0), 0)
 
-  // Method 2: Get total commits across all repos using search API
-  let totalCommits = 0
-  try {
-    const commitSearchRes = await axios.get(
-      `${GITHUB_API}/search/commits?q=author:${username}&per_page=1`,
-      {
-        headers: {
-          ...headers,
-          Accept: 'application/vnd.github.cloak-preview+json'
-        }
+  // Get total commits across all repos using search API
+
+let totalCommits = 0
+try {
+  const commitSearchRes = await axios.get(
+    `${GITHUB_API}/search/commits?q=author:${username}&per_page=1`,
+    {
+      headers: {
+        ...headers,
+        Accept: 'application/vnd.github.cloak-preview+json'
       }
-    )
-    totalCommits = commitSearchRes.data.total_count || 0
-  } catch (e) {
-    // fallback to counting from repos
-    totalCommits = recentCommits
-    console.log('Commit search failed, using events count')
-  }
-
-  // Method 3: Get contribution count from each repo
-  let repoCommits = 0
-  try {
-    const commitPromises = repos.slice(0, 10).map(repo =>
-      axios.get(
-        `${GITHUB_API}/repos/${username}/${repo.name}/commits?author=${username}&per_page=1`,
-        { headers }
-      ).then(res => {
-        // Get total from Link header
-        const link = res.headers.link || ''
-        const match = link.match(/page=(\d+)>; rel="last"/)
-        return match ? parseInt(match[1]) : res.data.length
-      }).catch(() => 0)
-    )
-    const counts = await Promise.all(commitPromises)
-    repoCommits = counts.reduce((a, b) => a + b, 0)
-  } catch (e) {
-    console.log('Repo commits count failed')
-  }
-
-  // Use the best available count
-  const bestCommitCount = Math.max(totalCommits, repoCommits, recentCommits)
-
-  // Recent activity feed
-  const recentActivity = events.slice(0, 10).map(e => {
-    let text = ''
-    if (e.type === 'PushEvent') {
-      const count = e.payload?.commits?.length || 0
-      text = `Pushed ${count} commit${count > 1 ? 's' : ''} to ${e.repo?.name}`
-    } else if (e.type === 'CreateEvent') {
-      text = `Created ${e.payload?.ref_type} in ${e.repo?.name}`
-    } else if (e.type === 'WatchEvent') {
-      text = `Starred ${e.repo?.name}`
-    } else if (e.type === 'ForkEvent') {
-      text = `Forked ${e.repo?.name}`
-    } else if (e.type === 'IssuesEvent') {
-      text = `${e.payload?.action} issue in ${e.repo?.name}`
-    } else if (e.type === 'PullRequestEvent') {
-      text = `${e.payload?.action} PR in ${e.repo?.name}`
-    } else {
-      text = `${e.type.replace('Event', '')} on ${e.repo?.name}`
     }
-    return {
-      type: e.type,
-      text,
-      time: e.created_at,
-      repo: e.repo?.name
-    }
-  }).filter(a => a.text)
+  )
+  totalCommits = commitSearchRes.data.total_count || 0
+} catch (e) {
+  console.log('Commit search failed:', e.message)
+  // Fallback — count from push events
+  const pushEvents = events.filter(e => e.type === 'PushEvent')
+  totalCommits = pushEvents.reduce((acc, e) => acc + (e.payload?.commits?.length || 0), 0)
+}
+
+// Recent activity feed
+const recentActivity = events.slice(0, 10).map(e => {
+  let text = ''
+  if (e.type === 'PushEvent') {
+    text = `Pushed to ${e.repo?.name}`
+  } else if (e.type === 'CreateEvent') {
+    text = `Created ${e.payload?.ref_type} in ${e.repo?.name}`
+  } else if (e.type === 'WatchEvent') {
+    text = `Starred ${e.repo?.name}`
+  } else if (e.type === 'ForkEvent') {
+    text = `Forked ${e.repo?.name}`
+  } else if (e.type === 'IssuesEvent') {
+    text = `${e.payload?.action} issue in ${e.repo?.name}`
+  } else if (e.type === 'PullRequestEvent') {
+    text = `${e.payload?.action} PR in ${e.repo?.name}`
+  } else {
+    text = `${e.type.replace('Event', '')} on ${e.repo?.name}`
+  }
+  return {
+    type: e.type,
+    text,
+    time: e.created_at,
+    repo: e.repo?.name
+  }
+}).filter(a => a.text)
 
   // Top repos by stars
   const topRepos = repos
@@ -132,7 +108,7 @@ const getGitHubStats = async (username) => {
   publicRepos: user.public_repos,
   totalStars,
   totalForks,
-  recentCommits: bestCommitCount,
+  recentCommits: totalCommits, 
   topLanguages,
   topRepos,
   recentActivity,
