@@ -14,6 +14,7 @@ export default function Navbar() {
     { label: 'GitHub', path: '/dashboard/github' },
     { label: 'Codeforces', path: '/dashboard/codeforces' },
     { label: 'Recommendations', path: '/dashboard/recommendations' },
+    { label: 'Search', path: '/dashboard/search' }, 
   ]
 
   const handleLogout = () => {

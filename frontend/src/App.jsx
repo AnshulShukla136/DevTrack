@@ -11,6 +11,7 @@ import CodeForcesPage from './pages/CodeForcesPage'
 import LeetCodePage from './pages/LeetCodePage'
 import RecommendationsPage from './pages/RecommendationsPage'
 import { StatsProvider } from './context/StatsContext'
+import SearchPage from './pages/SearchPage'
 function App() {
   return (
     <AuthProvider>
@@ -28,7 +29,7 @@ function App() {
           <Route path="/dashboard/github" element={<ProtectedRoute><GitHubPage /></ProtectedRoute>} />
           <Route path="/dashboard/codeforces" element={<ProtectedRoute><CodeForcesPage /></ProtectedRoute>} />
           <Route path="/dashboard/leetcode" element={<ProtectedRoute><LeetCodePage /></ProtectedRoute>} />
-          
+          <Route path="/dashboard/search" element={<ProtectedRoute><SearchPage /></ProtectedRoute>} />
           {/* Wildcard last */}
           <Route path="/dashboard/*" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         </Routes>
