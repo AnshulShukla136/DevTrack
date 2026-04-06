@@ -4,13 +4,15 @@ dotenv.config()
 const express = require('express')
 const cors = require('cors')
 const helmet = require('helmet')
-
+const keepAlive = require('./utils/keepAlive')
 const passport = require('passport')
 const connectDB = require('./config/db')
 require('./config/passport') // load strategies
 
 connectDB()
-
+if (process.env.NODE_ENV === 'production') {
+  keepAlive()
+}
 const app = express()
 
 app.use(helmet())
