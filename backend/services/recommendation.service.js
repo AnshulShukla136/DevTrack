@@ -6,15 +6,27 @@ const topicConfig = {
      thresholds: { weak: 150, intermediate: 350, advanced: 600 },
     aliases: ['Dynamic Drogramming', 'dp'],
     problems: [
-      { title: 'Climbing Stairs', slug: 'climbing-stairs', difficulty: 'Easy', platform: 'leetcode' },
-      { title: 'House Robber', slug: 'house-robber', difficulty: 'Medium', platform: 'leetcode' },
-      { title: 'Maximum Subarray', slug: 'maximum-subarray', difficulty: 'Medium', platform: 'leetcode' },
-      { title: 'Unique Paths', slug: 'unique-paths', difficulty: 'Medium', platform: 'leetcode' },
-      { title: 'Coin Change', slug: 'coin-change', difficulty: 'Medium', platform: 'leetcode' },
-      { title: 'Longest Increasing Subsequence', slug: 'longest-increasing-subsequence', difficulty: 'Medium', platform: 'leetcode' },
-      { title: 'Edit Distance', slug: 'edit-distance', difficulty: 'Medium', platform: 'leetcode' },
-      { title: 'Burst Balloons', slug: 'burst-balloons', difficulty: 'Hard', platform: 'leetcode' },
-    ]
+  { title: 'Climbing Stairs', slug: 'climbing-stairs', difficulty: 'Easy', platform: 'leetcode' },
+  { title: 'House Robber', slug: 'house-robber', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'House Robber II', slug: 'house-robber-ii', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Maximum Subarray', slug: 'maximum-subarray', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Coin Change', slug: 'coin-change', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Longest Increasing Subsequence', slug: 'longest-increasing-subsequence', difficulty: 'Medium', platform: 'leetcode' },
+   { title: 'Longest Common Subsequence', slug: 'longest-common-subsequence', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Edit Distance', slug: 'edit-distance', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Burst Balloons', slug: 'burst-balloons', difficulty: 'Hard', platform: 'leetcode' },
+
+  { title: 'Decode Ways', slug: 'decode-ways', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Word Break', slug: 'word-break', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Partition Equal Subset Sum', slug: 'partition-equal-subset-sum', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Minimum Path Sum', slug: 'minimum-path-sum', difficulty: 'Medium', platform: 'leetcode' },
+ { title: 'Unique Paths', slug: 'unique-paths', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Unique Paths', slug: 'unique-paths-ii', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Best Time to Buy and Sell Stock II', slug: 'best-time-to-buy-and-sell-stock-ii', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Best Time to Buy and Sell Stock with Cooldown', slug: 'best-time-to-buy-and-sell-stock-with-cooldown', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Palindrome Partitioning II', slug: 'palindrome-partitioning-ii', difficulty: 'Hard', platform: 'leetcode' },
+  { title: 'Distinct Subsequences', slug: 'distinct-subsequences', difficulty: 'Hard', platform: 'leetcode' }
+]
   },
   'graphs': {
      thresholds: { weak: 150, intermediate: 350, advanced: 600 },
@@ -88,12 +100,22 @@ const topicConfig = {
      thresholds: { weak: 80, intermediate: 200, advanced: 380 },
     aliases: ['greedy'],
     problems: [
-      { title: 'Jump Game', slug: 'jump-game', difficulty: 'Medium', platform: 'leetcode' },
-      { title: 'Jump Game II', slug: 'jump-game-ii', difficulty: 'Medium', platform: 'leetcode' },
-      { title: 'Gas Station', slug: 'gas-station', difficulty: 'Medium', platform: 'leetcode' },
-      { title: 'Partition Labels', slug: 'partition-labels', difficulty: 'Medium', platform: 'leetcode' },
-      { title: 'Candy', slug: 'candy', difficulty: 'Hard', platform: 'leetcode' },
-    ]
+  { title: 'Jump Game', slug: 'jump-game', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Jump Game II', slug: 'jump-game-ii', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Gas Station', slug: 'gas-station', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Partition Labels', slug: 'partition-labels', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Candy', slug: 'candy', difficulty: 'Hard', platform: 'leetcode' },
+
+  { title: 'Non-overlapping Intervals', slug: 'non-overlapping-intervals', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Minimum Number of Arrows to Burst Balloons', slug: 'minimum-number-of-arrows-to-burst-balloons', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Assign Cookies', slug: 'assign-cookies', difficulty: 'Easy', platform: 'leetcode' },
+  { title: 'Task Scheduler', slug: 'task-scheduler', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Remove K Digits', slug: 'remove-k-digits', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Boats to Save People', slug: 'boats-to-save-people', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Maximum Units on a Truck', slug: 'maximum-units-on-a-truck', difficulty: 'Easy', platform: 'leetcode' },
+  { title: 'Bag of Tokens', slug: 'bag-of-tokens', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Reorganize String', slug: 'reorganize-string', difficulty: 'Medium', platform: 'leetcode' }
+]
   },
   'stack': {
      thresholds: { weak: 40, intermediate: 100, advanced: 200},
