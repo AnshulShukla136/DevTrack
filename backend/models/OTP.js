@@ -16,7 +16,6 @@ const otpSchema = new mongoose.Schema({
   }
 })
 
-// Auto-delete document when expiresAt is reached
 otpSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 })
 
 module.exports = mongoose.model('OTP', otpSchema)

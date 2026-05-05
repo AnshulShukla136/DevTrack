@@ -21,7 +21,7 @@ const topicConfig = {
   { title: 'Partition Equal Subset Sum', slug: 'partition-equal-subset-sum', difficulty: 'Medium', platform: 'leetcode' },
   { title: 'Minimum Path Sum', slug: 'minimum-path-sum', difficulty: 'Medium', platform: 'leetcode' },
  { title: 'Unique Paths', slug: 'unique-paths', difficulty: 'Medium', platform: 'leetcode' },
-  { title: 'Unique Paths', slug: 'unique-paths-ii', difficulty: 'Medium', platform: 'leetcode' },
+  { title: 'Unique Paths II', slug: 'unique-paths-ii', difficulty: 'Medium', platform: 'leetcode' },
   { title: 'Best Time to Buy and Sell Stock II', slug: 'best-time-to-buy-and-sell-stock-ii', difficulty: 'Medium', platform: 'leetcode' },
   { title: 'Best Time to Buy and Sell Stock with Cooldown', slug: 'best-time-to-buy-and-sell-stock-with-cooldown', difficulty: 'Medium', platform: 'leetcode' },
   { title: 'Palindrome Partitioning II', slug: 'palindrome-partitioning-ii', difficulty: 'Hard', platform: 'leetcode' },
