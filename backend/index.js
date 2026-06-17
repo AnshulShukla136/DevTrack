@@ -10,9 +10,9 @@ const connectDB = require('./config/db')
 require('./config/passport') // load strategies
 
 connectDB()
-if (process.env.NODE_ENV === 'production') {
-  keepAlive()
-}
+// if (process.env.NODE_ENV === 'production') {
+//   keepAlive()
+// }
 const app = express()
 
 app.use(helmet())
